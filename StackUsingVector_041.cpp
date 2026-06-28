@@ -3,7 +3,8 @@
 #include<list>
 #include<stack>
 using namespace std;
-class MyStack {
+class MyStack
+{
     public:
     vector<int> st;
     void push(int val){
@@ -30,22 +31,23 @@ class MyStack {
     int size(){
         return st.size();
     }
-}
+};
 
-int main(){
-MyStack s;
-s.push(10);
-s.push(20);
-s.push(30);
-s.push(40);
-s.push(20);
-cout << s.top() << endl; // Output: 20
-s.pop();
-cout << s.top() << endl; // Output: 10
-cout << s.empty() << endl; // Output: 0 (false)
-cout << s.size() << endl; // Output: 1
-s.pop();
-cout << s.empty() << endl; // Output: 1 (true)
-return 0;
+int main()
+{
+ MyStack s;
+ s.push(10);
+ s.push(20);
+ s.push(30);
+ s.push(40);
+ s.push(20);
+ cout << s.top() << endl; // Output: 20
+ s.pop();
+ cout << s.top() << endl; // Output: 10
+ cout << s.empty() << endl; // Output: 0 (false)
+ cout << s.size() << endl; // Output: 1
+ s.pop();
+ cout << s.empty() << endl; // Output: 1 (true)
+ return 0;
 
 }
