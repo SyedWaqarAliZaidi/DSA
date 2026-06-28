@@ -1,5 +1,4 @@
 #include <iostream>
-#include<vector>
 using namespace std;
 
 
@@ -10,7 +9,7 @@ public:
 
     Node(int value) {
         data = value;
-        next = NULL;
+        next = nullptr;
     }
 };
 
@@ -20,16 +19,16 @@ public:
     Node* tail;
  
     linkList() {
-        head = NULL;
-        tail = NULL;
+        head = nullptr;
+        tail = nullptr;
     }
-};
 
 
-void printLL () {
+
+void printLL() {
 Node* temp = head;
 while (temp != NULL){
-    cout << temp << "->";
+    cout << temp->data << "->";
     temp = temp -> next;
 }
 cout << "NULL" << endl;
@@ -65,17 +64,19 @@ void popFront(){
     Node* temp = head;
     head = head -> next;
     delete temp;
+    if (head == nullptr) tail = nullptr;
 }
 
 void popBack(){
-if (head = NULL) return;
-Node* temp=head;
-while (temp -> next != tail){
-    temp = temp -> next;
-}
-delete tail;
-tail = temp;
-tail -> next = NULL;
+    if (head == nullptr) return;
+    if (head == tail) { delete head; head = tail = nullptr; return; }
+    Node* temp = head;
+    while (temp->next != tail) {
+        temp = temp->next;
+    }
+    delete tail;
+    tail = temp;
+    tail->next = nullptr;
 
 }
 
@@ -91,11 +92,8 @@ if (position == 0)
     return;
 }
 Node* temp = head;
-for (int i=1; i < position - 1 && temp != NULL; i++)
-{ 
-    temp = temp -> next;
-}
-if (temp == NULL)
+for (int i = 1; i < position && temp != nullptr; ++i) temp = temp->next;
+if (temp == nullptr)
 {
     cout << "position out of bound\n";
     return;
@@ -129,39 +127,32 @@ void deleteNode(int value)
         cout << "list is empty\n";
         return;
     }
-    Node* temp = head;
-
-    while(temp != NULL )
+    Node* curr = head;
+    Node* prev = nullptr;
+    while (curr != nullptr)
     {
-        if (temp->data == value)
+        if (curr->data == value)
         {
-            if (temp->data == head->data)
+            if (curr == head)
             {
                 popFront();
                 return;
             }
-            else if(temp->data == tail->data)
+            else if (curr == tail)
             {
                 popBack();
                 return;
-
             }
             else
             {
-                Node* prev = head;
-                while (prev->next != temp)
-                {
-                    prev = prev -> next;
-                }
-                prev -> next = temp -> next;
-                delete temp;
+                prev->next = curr->next;
+                delete curr;
                 return;
             }
         }
-
-}
-        temp = temp -> next;
-    
+        prev = curr;
+        curr = curr->next;
+    }
     cout << "value not found\n";
 }
 };
