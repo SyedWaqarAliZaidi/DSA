@@ -10,10 +10,15 @@ int main()
     q.push(30);     
     q.push(40);
     q.push(50);
-    cout << "front element is": << q.front() << endl:
-    cout << "back element is": << q.back() << endl:
-    cout << "size of queue is": << q.size() << endl:
-    cout << "Is queue empty?": << q.empty() << endl:
+    cout << "front element is:" << q.front() << endl;
+    cout << "back element is:" << q.back() << endl;
+    cout << "size of queue is:" << q.size() << endl;
+    cout << "Is queue empty?:" << q.empty() << endl;
     cout << q.front() << endl; // Output: 10
-    q.pop();
+    q.pop(); 
+    cout << q.front() << endl; // Output: 20
+    cout << q.size() << endl; // Output: 4
+    q.push(60);
+    cout << q.back() << endl; // Output: 60
+    cout << q.front() << endl; // Output: 20
 }
