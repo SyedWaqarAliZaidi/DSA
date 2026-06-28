@@ -3,148 +3,152 @@ using namespace std;
 
 class Node
 {
-    public:
+public:
     int data;
-    Node *next;
+    Node* next;
 
     Node(int val)
     {
         data = val;
-        next = NULL;
+        next = nullptr;
     }
 };
 
-class circularList{
- Node* head;
- Node* tail;
+class circularList
+{
+private:
+    Node* head;
+    Node* tail;
 
 public:
-circularList()
-{
-    head = tail = NULL;
-
-
-}
-
-void insertAtHead(int value)
-{
-    Node *newNode = new Node(value);
-
-
-    if (head == NULL)
+    circularList()
     {
-        head = tail = newNode;
-        tail->next = head; 
-        return;
+        head = tail = nullptr;
     }
-    else {
+
+    void insertAtHead(int value)
+    {
+        Node* newNode = new Node(value);
+
+        if (head == nullptr)
+        {
+            head = tail = newNode;
+            tail->next = head;
+            return;
+        }
+
         newNode->next = head;
         head = newNode;
         tail->next = head;
     }
-}
-void display()
-{
-    if (head == NULL)
+
+    void display()
     {
-        cout << "List is empty\n";
-        return;
-    }
-
-    Node *temp = head;
-    do
-    {
-        cout << temp->data << " -> ";
-        temp = temp->next;
-    } while (temp != head);
-
-    cout << temp->data <<"->";
-    temp = temp->next;
-}
-
-void searchNode(int key)
-{
-    if (head == NULL)
-    {
-        cout << "List is empty\n";
-        return;
-    }
-
-    Node *temp = head;
-    int pos = 1;
-
-    do
-    {
-        if (temp->data == key)
+        if (head == nullptr)
         {
-            cout << "Value found at position " << pos << endl;
+            cout << "List is empty\n";
             return;
         }
-        temp = temp->next;
-        pos++;
-    } while (temp != head);
 
-    cout << "Value not found\n";
-}
-
-
-void deleteNode(int key)
-{
-    if (head == NULL)
-    {
-        cout << "List is empty\n";
-        return;
-    }
-    bool found = false;
-    while (head != NULL && head->data == key)
-    {
-
-        if (head->next == head)
+        Node* temp = head;
+        do
         {
-            delete head;
-            head = NULL;
-            found = true;
-            break;
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        } while (temp != head);
+
+        cout << "(head)\n";
+    }
+
+    void searchNode(int key)
+    {
+        if (head == nullptr)
+        {
+            cout << "List is empty\n";
+            return;
         }
 
-        Node *last = head;
-        while (last->next != head)
-            last = last->next;
+        Node* temp = head;
+        int pos = 1;
 
-        Node *del = head;
-        head = head->next;
-        last->next = head;
-        delete del;
-        found = true;
-    }
-    if (head != NULL)
-    {
-        Node *temp = head;
-        while (temp->next != head)
+        do
         {
-            if (temp->next->data == key)
+            if (temp->data == key)
             {
-                Node *del = temp->next;
-                temp->next = del->next;
-                delete del;
-                found = true;
+                cout << "Value found at position " << pos << endl;
+                return;
             }
-            else
-            {
-                temp = temp->next;
-            }
-        }
-    }
+            temp = temp->next;
+            pos++;
+        } while (temp != head);
 
-    if (found)
-        cout << "All occurrences deleted\n";
-    else
         cout << "Value not found\n";
-}
+    }
+
+    void deleteNode(int key)
+    {
+        if (head == nullptr)
+        {
+            cout << "List is empty\n";
+            return;
+        }
+
+        bool found = false;
+
+        while (head != nullptr && head->data == key)
+        {
+            if (head->next == head)
+            {
+                delete head;
+                head = tail = nullptr;
+                found = true;
+                break;
+            }
+
+            Node* last = head;
+            while (last->next != head)
+                last = last->next;
+
+            Node* del = head;
+            head = head->next;
+            last->next = head;
+            delete del;
+            found = true;
+        }
+
+        if (head != nullptr)
+        {
+            Node* temp = head;
+            while (temp->next != head)
+            {
+                if (temp->next->data == key)
+                {
+                    Node* del = temp->next;
+                    temp->next = del->next;
+
+                    if (del == tail)
+                        tail = temp;
+
+                    delete del;
+                    found = true;
+                }
+                else
+                {
+                    temp = temp->next;
+                }
+            }
+        }
+
+        if (found)
+            cout << "All occurrences deleted\n";
+        else
+            cout << "Value not found\n";
+    }
+};
 
 int main()
 {
-circularList Cll;
+    circularList Cll;
 
     int choice, value;
 
@@ -164,23 +168,23 @@ circularList Cll;
         case 1:
             cout << "Enter value to insert: ";
             cin >> value;
-            insertNode(value);
+            Cll.insertAtHead(value);
             break;
 
         case 2:
             cout << "Enter value to search: ";
             cin >> value;
-            searchNode(value);
+            Cll.searchNode(value);
             break;
 
         case 3:
             cout << "Enter value to delete: ";
             cin >> value;
-            deleteNode(value);
+            Cll.deleteNode(value);
             break;
 
         case 4:
-            display();
+            Cll.display();
             break;
 
         case 5:
